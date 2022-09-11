@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
     .findAll({
       attributes: ["id", "nombre", "id_carrera"]
     })
-    .then(materias => res.send(materias))
+    .then(materia => res.send(materia))
     .catch(() => res.sendStatus(500));
 });
 
