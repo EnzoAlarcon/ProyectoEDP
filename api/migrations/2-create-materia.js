@@ -11,16 +11,6 @@ module.exports = {
       nombre: {
         type: Sequelize.STRING
       },
-      apellido: {
-        type: Sequelize.STRING
-      },
-      dni: {
-        type: Sequelize.INTEGER
-      },
-      nacimiento: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
