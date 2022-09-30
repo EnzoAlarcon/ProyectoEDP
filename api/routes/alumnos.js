@@ -7,7 +7,7 @@ router.get("/", (req, res,next) => {
   models.alumno.findAll({attributes: ["id","nombre","apellido","telefono"],
       
       /////////se agrega la asociacion 
-      //include:[{as:'Carrera-Relacionada', model:models.carrera, attributes: ["id","nombre"]}]
+      include:[{as:'Carrera-Relacionada', model:models.alumno_estudia, attributes: ["id_Carrera"]}]
       ////////////////////////////////
 
     }).then(alumnos => res.send(alumnos)).catch(error => { return next(error)});
@@ -15,7 +15,7 @@ router.get("/", (req, res,next) => {
 
 router.post("/", (req, res) => {
   models.alumno
-    .create({ nombre: req.body.nombre, apellido: req.body.apellido })
+    .create({ nombre: req.body.nombre, apellido: req.body.apellido, telefono: req.body.telefono })
     .then(alumno => res.status(201).send({ id: alumno.id }))
     .catch(error => {
       if (error == "SequelizeUniqueConstraintError: Validation error") {
@@ -49,7 +49,7 @@ router.get("/:id", (req, res) => {
 router.put("/:id", (req, res) => {
   const onSuccess = alumno =>
   alumno
-      .update({ nombre: req.body.nombre, apellido: req.body.apellido }, { fields: ["nombre","apellido"] })
+      .update({ nombre: req.body.nombre, apellido: req.body.apellido, telefono: req.body.telefono }, { fields: ["nombre","apellido","telefono"] })
       .then(() => res.sendStatus(200))
       .catch(error => {
         if (error == "SequelizeUniqueConstraintError: Validation error") {
