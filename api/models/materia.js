@@ -12,11 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     ,{
       as : 'Carrera-Relacionada',  // nombre de mi relacion
       foreignKey: 'id_carrera'     // campo con el que voy a igualar
-    })
+    });
   	/////////////////////
-
-
-
   };
+    /*materia.associate = function(models) {
+      materia.belongsToMany(models.profesores// modelo al que pertenece
+      ,{
+        through: 'dicta_materia',
+        foreignKey: 'id_materia'
+      })
+  }*/
   return materia;
 };

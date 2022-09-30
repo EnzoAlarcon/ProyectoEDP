@@ -4,7 +4,7 @@ var models = require("../models");
 
 router.get("/", (req, res,next) => {
 
-  models.alumnos.findAll({attributes: ["nombre","apellido","id_alumno","telefono"],
+  models.alumno.findAll({attributes: ["id","nombre","apellido","telefono"],
       
       /////////se agrega la asociacion 
       //include:[{as:'Carrera-Relacionada', model:models.carrera, attributes: ["id","nombre"]}]
@@ -14,9 +14,9 @@ router.get("/", (req, res,next) => {
 });
 
 router.post("/", (req, res) => {
-  models.alumnos
+  models.alumno
     .create({ nombre: req.body.nombre, apellido: req.body.apellido })
-    .then(alumnos => res.status(201).send({ id: alumnos.id }))
+    .then(alumno => res.status(201).send({ id: alumno.id }))
     .catch(error => {
       if (error == "SequelizeUniqueConstraintError: Validation error") {
         res.status(400).send('Bad request: existe otro alumno con el mismo nombre')
@@ -28,27 +28,27 @@ router.post("/", (req, res) => {
     });
 });
 
-const findAlumnos = (id, { onSuccess, onNotFound, onError }) => {
-  models.alumnos
+const findAlumno = (id, { onSuccess, onNotFound, onError }) => {
+  models.alumno
     .findOne({
-      attributes: ["nombre", "apellido", "id_alumno","telefono"],
+      attributes: ["id","nombre","apellido","telefono"],
       where: { id }
     })
-    .then(alumnos => (alumnos ? onSuccess(alumnos) : onNotFound()))
+    .then(alumno => (alumno ? onSuccess(alumno) : onNotFound()))
     .catch(() => onError());
 };
 
 router.get("/:id", (req, res) => {
-    findAlumnos(req.params.id, {
-    onSuccess: alumnos => res.send(alumnos),
+    findAlumno(req.params.id, {
+    onSuccess: alumno => res.send(alumno),
     onNotFound: () => res.sendStatus(404),
     onError: () => res.sendStatus(500)
   });
 });
 
 router.put("/:id", (req, res) => {
-  const onSuccess = alumnos =>
-  alumnos
+  const onSuccess = alumno =>
+  alumno
       .update({ nombre: req.body.nombre, apellido: req.body.apellido }, { fields: ["nombre","apellido"] })
       .then(() => res.sendStatus(200))
       .catch(error => {
@@ -60,7 +60,7 @@ router.put("/:id", (req, res) => {
           res.sendStatus(500)
         }
       });
-    findAlumnos(req.params.id, {
+    findAlumno(req.params.id, {
     onSuccess,
     onNotFound: () => res.sendStatus(404),
     onError: () => res.sendStatus(500)
@@ -68,12 +68,12 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  const onSuccess = alumnos =>
-  alumnos
+  const onSuccess = alumno =>
+  alumno
       .destroy()
       .then(() => res.sendStatus(200))
       .catch(() => res.sendStatus(500));
-    findAlumnos(req.params.id, {
+    findAlumno(req.params.id, {
     onSuccess,
     onNotFound: () => res.sendStatus(404),
     onError: () => res.sendStatus(500)

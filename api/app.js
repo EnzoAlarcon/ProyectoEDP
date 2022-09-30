@@ -7,7 +7,7 @@ var materiasRouter = require('./routes/materias');
 var carrerasRouter = require('./routes/carreras');
 //var universidadRouter = require('./routes/universidad');
 var alumnosRouter = require('./routes/alumnos');
-//var profesoresRouter = require('./routes/profesores');
+var profesoresRouter = require('./routes/profesores');
 
 var app = express();
 

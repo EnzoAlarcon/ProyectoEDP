@@ -14,7 +14,7 @@ module.exports = {
       apellido: {
         type: Sequelize.STRING
       },
-      id_alumno: {
+      telefono: {
         type: Sequelize.INTEGER
       },
       createdAt: {
