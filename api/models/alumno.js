@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     alumno.belongsToMany(models.materia// modelo al que pertenece
     ,{
-      through: 'cursa_materia',
+      through:'cursa_materia',
       
     })
   };*/
