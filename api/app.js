@@ -6,8 +6,8 @@ var logger = require('morgan');
 var materiasRouter = require('./routes/materias');
 var carrerasRouter = require('./routes/carreras');
 //var universidadRouter = require('./routes/universidad');
-//var alumnosRouter = require('./routes/alumnos');
-var profesoresRouter = require('./routes/profesores');
+var alumnosRouter = require('./routes/alumnos');
+//var profesoresRouter = require('./routes/profesores');
 
 var app = express();
 
@@ -24,8 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/car', carrerasRouter);
 app.use('/mat', materiasRouter);
-//app.use('/alu', alumnosRouter);
-//app.use('/uni', universidadRouter);
+app.use('/alu', alumnosRouter);
 app.use('/pro', profesoresRouter);
 
 // catch 404 and forward to error handler
