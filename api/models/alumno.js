@@ -12,6 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       through:'cursa_materia',
       
     })
-  };*/
+  }; */
   return profesores;
 };
