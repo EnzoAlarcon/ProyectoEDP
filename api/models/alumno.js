@@ -5,8 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     apellido: DataTypes.STRING,
     telefono: DataTypes.INTEGER
   }, {});
-  alumno.associate = function(models) {
+  /*alumno.associate = function(models) {
     // associations can be defined here
-  };
-  return alumno;
+    alumno.belongsToMany(models.materia// modelo al que pertenece
+    ,{
+      through: 'cursa_materia',
+      
+    })
+  };*/
 };

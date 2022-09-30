@@ -22,5 +22,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id_materia'
       })
   }*/
+
+   /*materia.associate = function(models) {
+      materia.belongsToMany(models.alumnos// modelo al que pertenece
+      ,{
+        through: 'dicta_materia',
+        foreignKey: 'id_materia'
+      })
+  }*/
   return materia;
 };
