@@ -4,13 +4,13 @@ module.exports = (sequelize, DataTypes) => {
     nombre: DataTypes.STRING,
     apellido: DataTypes.STRING
   }, {});
-  /*profesores.associate = function(models) {
+  profesores.associate = function(models) {
     // associations can be defined here
-    profesores.belongsToMany(models.materia// modelo al que pertenece
+    profesores.hasMany(models.profesor_materia
     ,{
-      through: 'dicta_materia',
-      foreignKey: 'id_profesores'
+      as: 'Materia-Relacionada',
+      foreignKey: 'id_profesor'
     })
-  };*/
+  };
   return profesores;
 };

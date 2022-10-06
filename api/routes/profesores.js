@@ -7,7 +7,7 @@ router.get("/", (req, res,next) => {
   models.profesores.findAll({attributes: ["id","nombre","apellido"],
       
       /////////se agrega la asociacion 
-      //include:[{model:models.materia, attributes: ["id","nombre"]}]
+      include:[{as: 'Materia-Relacionada', model:models.profesor_materia}]
       ////////////////////////////////
 
     }).then(profesor => res.send(profesor)).catch(error => { return next(error)});
