@@ -7,14 +7,14 @@ router.get("/", (req, res,next) => {
   models.profesores.findAll({attributes: ["id","nombre","apellido"],
       
       /////////se agrega la asociacion 
-      include:[{as: 'Materia-Relacionada', model:models.profesor_materia}]
+      include:[{as: 'Materia-Relacionada', model:models.profesor_materia, attributes:["id_materia"], include:[{as:'Materia', model:models.materia, attributes:["nombre"]}]}]
       ////////////////////////////////
 
     }).then(profesor => res.send(profesor)).catch(error => { return next(error)});
 });
 
 router.post("/", (req, res) => {
-  models.profesores
+  const profesor = models.profesores
     .create({ nombre: req.body.nombre, apellido: req.body.apellido })
     .then(profesores => res.status(201).send({ id: profesores.id }))
     .catch(error => {
@@ -26,6 +26,7 @@ router.post("/", (req, res) => {
         res.sendStatus(500)
       }
     });
+  models.profesor_materia.create({id_profesor: profesor.id, id_materia: req.body.id_materia}); // Falta insertar correctamente la columna id_profesor
 });
 
 const findProfesor = (id, { onSuccess, onNotFound, onError }) => {
