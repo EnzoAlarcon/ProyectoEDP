@@ -7,14 +7,17 @@ router.get("/", (req, res,next) => {
   models.alumno.findAll({attributes: ["id","nombre","apellido","telefono"],
       
       /////////se agrega la asociacion 
-      include:[{as:'Carrera-Relacionada', model:models.alumno_estudia, attributes: ["id_Carrera"]}]
+      //include:[{as:'Carrera-Relacionada', model:models.alumno_estudia, attributes: ["id_Carrera"]},
+      include:[{as: 'Carr-Relacionada', model:models.cursa_carrera, attributes:["id_carrera"], 
+      include:[{as:'Carrera', model:models.carrera, attributes:["nombre"]}]
+    }]
       ////////////////////////////////
 
     }).then(alumnos => res.send(alumnos)).catch(error => { return next(error)});
 });
 
 router.post("/", (req, res) => {
-  models.alumno
+  const alumno=models.alumno
     .create({ nombre: req.body.nombre, apellido: req.body.apellido, telefono: req.body.telefono })
     .then(alumno => res.status(201).send({ id: alumno.id }))
     .catch(error => {
@@ -26,6 +29,7 @@ router.post("/", (req, res) => {
         res.sendStatus(500)
       }
     });
+    models.cursa_carrera.create({id_alumno:alumno.id,id_carrera: req.body.id_carrera});
 });
 
 const findAlumno = (id, { onSuccess, onNotFound, onError }) => {
