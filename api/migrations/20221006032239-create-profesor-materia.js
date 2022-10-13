@@ -7,12 +7,21 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+
       },
       id_profesor: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'profesores',
+          key: 'id'
+        }
       },
       id_materia: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'materia',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

@@ -6,13 +6,11 @@ router.get("/", (req, res,next) => {
 
   models.materia.findAll({attributes: ["id","nombre","id_carrera"],
       
-      /////////se agrega la asociacion 
-      include:[{as:'Carrera-Relacionada', model:models.carrera, attributes: ["id","nombre"]}, {as:'Profesor-Relacionado', model:models.profesor_materia, attributes: ["id_profesor"],
-      include:[{as:'Profesor', model:models.profesores, attributes: ["nombre","apellido"]}]
+      //se agrega la asociacion con carrera
+      include:[{as:'Carrera-Relacionada', model:models.carrera, attributes: ["id","nombre"]}, 
+      //se agrega la asociacion con la tabla intermedia y dentro con pofesores
+      {as:'Profesor-Relacionado', model:models.profesor_materia, attributes: ["id_profesor"], include:[{as:'Profesor', model:models.profesores, attributes: ["nombre","apellido"]}]
     }]
-
-      ////////////////////////////////
-
     }).then(materias => res.send(materias)).catch(error => { return next(error)});
 });
 

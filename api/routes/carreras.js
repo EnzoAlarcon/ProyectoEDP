@@ -9,9 +9,8 @@ router.get("/", (req, res) => {
       attributes: ["id", "nombre"],
           
       /////////se agrega la asociacion 
-      include:[{as:'Dpto-Relacionado', model:models.departamento, attributes: ["nombre"]}],
-      //include:[{model:models.profesores, attributes: ["id","nombre","apellido"]}]
-
+      include:[{as:'Dpto-Relacionado', model:models.departamento, attributes: ["nombre"]},
+      {as: 'Alumno-Relacionado', model:models.alumno_carrera, attributes:['id_alumno'], include:[{as: 'Alumno', model:models.alumno, attributes:['nombre', 'apellido']}]}]
       ////////////////////////////////
     })
     .then(carreras => res.send(carreras))

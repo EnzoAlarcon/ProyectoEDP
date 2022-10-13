@@ -3,11 +3,13 @@ var router = express.Router();
 var models = require("../models");
 
 router.get("/", (req, res,next) => {
-
+  
   models.profesores.findAll({attributes: ["id","nombre","apellido"],
       
       /////////se agrega la asociacion 
-      include:[{as: 'Materia-Relacionada', model:models.profesor_materia, attributes:["id_materia"], include:[{as:'Materia', model:models.materia, attributes:["nombre"]}]}]
+      include:[{as: 'Materia-Relacionada', model:models.profesor_materia, attributes:["id_materia"], 
+      include:[{as: 'Materia', model:models.materia, attributes: ["nombre"]}]
+    }]
       ////////////////////////////////
 
     }).then(profesor => res.send(profesor)).catch(error => { return next(error)});

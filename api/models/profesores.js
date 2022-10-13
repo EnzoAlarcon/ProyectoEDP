@@ -5,11 +5,11 @@ module.exports = (sequelize, DataTypes) => {
     apellido: DataTypes.STRING
   }, {});
   profesores.associate = function(models) {
-    // associations can be defined here
+    // Asociacion a la tabla intermedia.
     profesores.hasMany(models.profesor_materia
     ,{
       as: 'Materia-Relacionada',
-      foreignKey: 'id_profesor'
+      foreignKey: 'id_materia'
     })
   };
   return profesores;
