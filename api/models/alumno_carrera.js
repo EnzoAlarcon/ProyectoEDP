@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'Alumno',
       foreignKey: 'id_alumno'
     }),
+    
     alumno_carrera.belongsTo(models.carrera, {
       as: 'Carrera',
       foreignKey: 'id_carrera'
